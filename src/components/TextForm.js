@@ -6,15 +6,18 @@ export default function TextForm(props) {
         console.log("Upper case was clicked")
         let newText=text.toUpperCase()
         setText(newText)
+        props.showAlert("Converted to uppercase..!!","success")
     }
     const handleClearClick = ()=>{
         console.log("Clear Text Area")
         let newText=''
         setText(newText)
+        props.showAlert("Text Cleared..!!","success")
     }
     const handleLoClick = ()=>{
         let newText=text.toLowerCase()
         setText(newText)
+        props.showAlert("Converted to lowercase..!!","success")
     }
 
     const handleOnChange = (event)=>{
@@ -26,11 +29,13 @@ export default function TextForm(props) {
         let newText=document.getElementById("myBox")
         newText.select();
         navigator.clipboard.writeText(newText.value)
+        props.showAlert("Copied to Clipboard..!!","success")
     }
 
     const handleExtraSpace = ()=>{
         let newText=text.split(/[ ]+/)
         setText(newText.join(" "))
+        props.showAlert("Extra Spaces removed..!!","success")
     }
 
   const [text,setText]=useState("")
@@ -50,7 +55,7 @@ export default function TextForm(props) {
             </div>
             <div className="conatiner my-3" style={{color: props.mode==='dark'?'white':'#042743'}}>
                <h2>Your Text Summary</h2> 
-               <p> Word Count: {text.split(" ").length} | Character Count: {text.length} | Line Count: {text.split("\n").length}</p>
+               <p> Word Count: {text.length>0?text.trim().split(" ").length:0} | Character Count: {text.length} | Line Count: {text.split("\n").length}</p>
                <p>{0.008*text.split(" ").length} Minutes read</p>
                <h2>Preview</h2>
                <p>{text.length>0?text:"Enter something to preview:"}</p>
